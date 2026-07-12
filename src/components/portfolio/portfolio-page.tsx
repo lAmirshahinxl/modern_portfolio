@@ -163,7 +163,20 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
       <header className="titlebar">
         <div className="traffic-lights" aria-hidden="true"><i /><i /><i /></div>
         <button className="mobile-menu" aria-label="Toggle explorer" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>☰</button>
-        <p className="window-title">{portfolio.site.windowTitle} <span>›</span> <strong>{activeTab.label}</strong></p>
+        <p className="window-title">
+          {portfolio.site.windowTitle} <span>›</span>{" "}
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.strong
+              key={activeTab.label}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={prefersReducedMotion ? undefined : { opacity: 0, y: -4 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.22, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {activeTab.label}
+            </motion.strong>
+          </AnimatePresence>
+        </p>
         <nav className="title-actions" aria-label="Quick links">
           <a className="hire-pill" href={`mailto:${portfolio.contact.email}`}><i /> <span className="wide-label">available_for_</span>hire<span className="wide-label">: true</span></a>
           <a href={portfolio.site.blogUrl} target="_blank" rel="noreferrer">blog</a>
@@ -191,36 +204,55 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
       </AnimatePresence>
 
       <nav className="editor-tabs" role="tablist" aria-label="Open files">
-        {visibleTabs.map((tab) => {
-          const isActive = activeTarget === tab.id;
+        <AnimatePresence initial={false}>
+          {visibleTabs.map((tab) => {
+            const isActive = activeTarget === tab.id;
 
-          return (
-            <div
-              key={tab.id}
-              className={isActive ? "editor-tab active" : "editor-tab"}
-              role="tab"
-              aria-selected={isActive}
-            >
-              <Link
-                href={tab.href}
-                aria-current={isActive ? "page" : undefined}
+            return (
+              <motion.div
+                key={tab.id}
+                className={isActive ? "editor-tab active" : "editor-tab"}
+                role="tab"
+                aria-selected={isActive}
+                layout={!prefersReducedMotion}
+                initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.96, y: -4 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.96, y: -4 }}
+                transition={{
+                  duration: prefersReducedMotion ? 0 : 0.28,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               >
-                <i>{tab.icon}</i>
-                <span>{tab.label}</span>
-              </Link>
-              {tab.pinned ? null : (
-                <button
-                  type="button"
-                  className="tab-close"
-                  aria-label={`Close ${tab.label}`}
-                  onClick={(event) => closeTab(tab.id, event)}
+                <Link
+                  href={tab.href}
+                  aria-current={isActive ? "page" : undefined}
                 >
-                  ×
-                </button>
-              )}
-            </div>
-          );
-        })}
+                  <i>{tab.icon}</i>
+                  <span>{tab.label}</span>
+                </Link>
+                {tab.pinned ? null : (
+                  <button
+                    type="button"
+                    className="tab-close"
+                    aria-label={`Close ${tab.label}`}
+                    onClick={(event) => closeTab(tab.id, event)}
+                  >
+                    ×
+                  </button>
+                )}
+                {isActive && !prefersReducedMotion ? (
+                  <motion.span
+                    className="tab-indicator"
+                    layoutId="active-tab-indicator"
+                    transition={{ type: "spring", stiffness: 380, damping: 34, mass: 0.7 }}
+                  />
+                ) : isActive ? (
+                  <span className="tab-indicator" />
+                ) : null}
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
       </nav>
 
       <main className="editor" id="main-content">
@@ -228,23 +260,35 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
           {lineNumbers.map((line) => <span key={line}>{line}</span>)}
         </aside>
         <div className="editor-scroll" ref={editorScrollRef}>
-          <AnimatePresence mode="wait" initial={false}>
+          <AnimatePresence mode="sync" initial={false}>
             <motion.div
               key={pathname}
               className="route-transition"
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
+              initial={prefersReducedMotion ? false : {
+                opacity: 0,
+                y: 18,
+                filter: "blur(8px)",
+              }}
               animate={{
                 opacity: 1,
                 y: 0,
-                transition: {
-                  duration: prefersReducedMotion ? 0 : 0.24,
-                  ease: [0.22, 1, 0.36, 1],
-                },
+                filter: "blur(0px)",
+                transition: prefersReducedMotion
+                  ? { duration: 0 }
+                  : {
+                      opacity: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
+                      y: { duration: 0.48, ease: [0.22, 1, 0.36, 1] },
+                      filter: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+                    },
               }}
               exit={prefersReducedMotion ? undefined : {
                 opacity: 0,
-                y: -3,
-                transition: { duration: 0.08, ease: "easeIn" },
+                y: -12,
+                filter: "blur(5px)",
+                transition: {
+                  duration: 0.26,
+                  ease: [0.4, 0, 0.2, 1],
+                },
               }}
             >
               {children}
