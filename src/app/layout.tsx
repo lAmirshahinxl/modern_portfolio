@@ -24,11 +24,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: portfolio.brand.name, url: siteUrl }],
   creator: portfolio.brand.name,
-  alternates: { canonical: "/" },
+
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteUrl,
+
     siteName: "Amir Abasi Portfolio",
     title: "Amir Abasi - Full Stack Developer | Flutter & React Specialist",
     description:

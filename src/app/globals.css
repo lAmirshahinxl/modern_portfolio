@@ -193,7 +193,8 @@ a:focus-visible {
   transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease, transform 160ms ease;
 }
 
-.title-actions button {
+.title-actions button,
+.title-actions .terminal-action {
   width: 27px;
   padding: 0;
   font-size: 12px;
@@ -315,7 +316,7 @@ a:focus-visible {
   font-size: 10.5px;
 }
 
-.file-tree button {
+.file-tree a {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -327,11 +328,12 @@ a:focus-visible {
   font-size: 11.5px;
   text-align: left;
   letter-spacing: 0.01em;
+  text-decoration: none;
   cursor: pointer;
   transition: color 120ms ease, background-color 120ms ease;
 }
 
-.file-tree button i {
+.file-tree a i {
   width: 11px;
   color: var(--faint);
   font-size: 10px;
@@ -339,19 +341,19 @@ a:focus-visible {
   text-align: center;
 }
 
-.file-tree button:hover {
+.file-tree a:hover {
   color: var(--text);
   background: var(--panel-strong);
 }
 
-.file-tree button.active {
+.file-tree a.active {
   padding-left: 37px;
   border-left: 2px solid var(--green);
   color: #078e67;
   background: var(--green-soft);
 }
 
-.file-tree button.active i {
+.file-tree a.active i {
   color: var(--green);
 }
 
@@ -396,47 +398,83 @@ a:focus-visible {
   display: none;
 }
 
-.editor-tabs button {
+.editor-tabs a {
   position: relative;
   display: flex;
-  flex: 0 0 157px;
+  flex: 1 1 auto;
   align-items: center;
   gap: 10px;
+  min-width: 0;
   height: 39px;
-  padding: 0 15px;
+  padding: 0 4px 0 15px;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.editor-tab {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  min-width: 132px;
+  max-width: 180px;
+  height: 39px;
   border-right: 1px solid var(--border);
   color: var(--muted);
   background: var(--panel);
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 10.5px;
-  cursor: pointer;
   transition: color 140ms ease, background-color 140ms ease;
 }
 
-.editor-tabs button:nth-child(1) { flex-basis: 143px; }
-.editor-tabs button:nth-child(3) { flex-basis: 157px; }
-.editor-tabs button:nth-child(4) { flex-basis: 143px; }
-
-.editor-tabs button i {
+.editor-tab i {
+  flex: none;
   color: var(--faint);
   font-size: 9px;
   font-style: normal;
 }
 
-.editor-tabs button b {
-  margin-left: auto;
-  color: var(--faint);
-  font-size: 13px;
-  font-weight: 400;
+.editor-tab span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.editor-tabs button:hover,
-.editor-tabs button.active {
+.editor-tab:not(:has(.tab-close)) a {
+  padding-right: 15px;
+}
+
+.editor-tab .tab-close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border: 0;
+  border-radius: 3px;
+  color: var(--faint);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.editor-tab .tab-close:hover {
+  color: var(--text);
+  background: color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.editor-tab:hover,
+.editor-tab.active {
   color: var(--text);
   background: var(--background);
 }
 
-.editor-tabs button.active::before {
+.editor-tab.active::before {
   position: absolute;
   top: 0;
   right: 0;
@@ -446,7 +484,7 @@ a:focus-visible {
   background: var(--green);
 }
 
-.editor-tabs button.active i {
+.editor-tab.active i {
   color: var(--green);
 }
 
@@ -550,7 +588,7 @@ a:focus-visible {
   letter-spacing: 0.18em;
 }
 
-.about-document h1 {
+.route-document h1 {
   margin: 0;
   color: var(--text);
   font-size: 56px;
@@ -786,6 +824,266 @@ a:focus-visible {
   color: var(--muted);
 }
 
+.route-transition {
+  min-height: 100%;
+}
+
+.document-intro {
+  padding: 36px 0 43px;
+}
+
+.skills-document {
+  padding: 51px 0 54px;
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-list li,
+.project-tags span {
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  background: var(--panel);
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 10.5px;
+}
+
+.code-document {
+  padding: 24px 0 80px;
+}
+
+.code-document pre {
+  margin: 0;
+  padding: 18px 20px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.code-document code {
+  color: var(--muted);
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: pre;
+}
+
+.log-document {
+  padding: 12px 0 80px;
+}
+
+.log-document ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.log-document li {
+  display: grid;
+  gap: 6px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.log-document code {
+  color: var(--faint);
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+}
+
+.log-document span {
+  width: fit-content;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--green);
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 10px;
+}
+
+.log-document p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.log-document strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.projects-document {
+  width: min(820px, calc(100% - 160px));
+}
+
+.project-list {
+  margin: 0;
+  padding: 0 0 80px;
+  list-style: none;
+}
+
+.project-list > li {
+  border-bottom: 1px solid var(--border);
+  animation: project-item-enter 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.project-list > li:nth-child(2) { animation-delay: 25ms; }
+.project-list > li:nth-child(3) { animation-delay: 50ms; }
+.project-list > li:nth-child(4) { animation-delay: 75ms; }
+.project-list > li:nth-child(5) { animation-delay: 100ms; }
+.project-list > li:nth-child(6) { animation-delay: 125ms; }
+.project-list > li:nth-child(7) { animation-delay: 150ms; }
+.project-list > li:nth-child(8) { animation-delay: 175ms; }
+.project-list > li:nth-child(9) { animation-delay: 200ms; }
+.project-list > li:nth-child(10) { animation-delay: 225ms; }
+
+.project-item {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 20px;
+  padding: 31px 0 33px;
+}
+
+.project-index {
+  padding-top: 3px;
+  color: var(--faint);
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 10.5px;
+}
+
+.project-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.project-heading p {
+  margin: 0 0 7px;
+  color: var(--green);
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.project-heading h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.project-heading > span {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  color: var(--green);
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 9.5px;
+}
+
+.project-heading > span i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.project-description {
+  max-width: 660px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.project-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 18px;
+  margin: 17px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-highlights li {
+  position: relative;
+  padding-left: 12px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.project-highlights li::before {
+  position: absolute;
+  top: 0.58em;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  content: "";
+  background: var(--green);
+}
+
+.project-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.project-tags span {
+  padding: 5px 8px;
+  font-size: 9.5px;
+}
+
+.project-footer > a {
+  flex: 0 0 auto;
+  padding-bottom: 2px;
+  border-bottom: 1px solid color-mix(in srgb, var(--green) 40%, transparent);
+  color: var(--green);
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 10.5px;
+  text-decoration: none;
+}
+
+.contact-document {
+  max-width: 650px;
+  padding-bottom: 70px;
+}
+
+.contact-document .document-headline {
+  margin: 19px 0 0;
+  font-size: 20px;
+}
+
+.contact-document .contact-email {
+  display: inline-block;
+  margin-top: 28px;
+  font-size: 13px;
+}
+
 .statusbar {
   position: absolute;
   z-index: 40;
@@ -829,6 +1127,11 @@ a:focus-visible {
 @keyframes editor-enter {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes project-item-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes blink {
@@ -895,7 +1198,8 @@ a:focus-visible {
     font-size: 9.5px;
   }
 
-  .title-actions button {
+  .title-actions button,
+  .title-actions .terminal-action {
     width: 26px;
     padding: 0;
   }
@@ -936,12 +1240,8 @@ a:focus-visible {
     left: 0;
   }
 
-  .editor-tabs button {
-    flex-basis: 157px;
-  }
-
-  .editor-tabs button:nth-child(1) {
-    flex-basis: 143px;
+  .editor-tab {
+    min-width: 140px;
   }
 
   .editor {
@@ -977,7 +1277,7 @@ a:focus-visible {
     font-size: 10.5px;
   }
 
-  .about-document h1 {
+  .route-document h1 {
     font-size: 44px;
   }
 
@@ -1030,6 +1330,53 @@ a:focus-visible {
 
   .principles {
     padding: 50px 0;
+  }
+
+  .document-intro {
+    padding: 32px 0 41px;
+  }
+
+  .skills-document {
+    padding: 46px 0 48px;
+  }
+
+  .projects-document {
+    width: auto;
+  }
+
+  .project-item {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 10px;
+    padding: 27px 0 29px;
+  }
+
+  .project-heading {
+    display: block;
+  }
+
+  .project-heading h2 {
+    font-size: 18px;
+  }
+
+  .project-heading > span {
+    margin-top: 9px;
+  }
+
+  .project-description {
+    font-size: 13.5px;
+  }
+
+  .project-footer {
+    display: block;
+  }
+
+  .project-footer > a {
+    display: inline-block;
+    margin-top: 16px;
+  }
+
+  .contact-document .document-headline {
+    font-size: 18px;
   }
 
   .principles li p {
