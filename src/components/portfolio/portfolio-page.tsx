@@ -260,7 +260,7 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
           {lineNumbers.map((line) => <span key={line}>{line}</span>)}
         </aside>
         <div className="editor-scroll" ref={editorScrollRef}>
-          <AnimatePresence mode="sync" initial={false}>
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={pathname}
               className="route-transition"
@@ -276,17 +276,17 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
                 transition: prefersReducedMotion
                   ? { duration: 0 }
                   : {
-                      opacity: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
-                      y: { duration: 0.48, ease: [0.22, 1, 0.36, 1] },
-                      filter: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+                      opacity: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+                      y: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+                      filter: { duration: 0.44, ease: [0.22, 1, 0.36, 1] },
                     },
               }}
               exit={prefersReducedMotion ? undefined : {
                 opacity: 0,
-                y: -12,
-                filter: "blur(5px)",
+                y: -14,
+                filter: "blur(6px)",
                 transition: {
-                  duration: 0.26,
+                  duration: 0.28,
                   ease: [0.4, 0, 0.2, 1],
                 },
               }}

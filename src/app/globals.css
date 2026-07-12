@@ -565,15 +565,6 @@ a:focus-visible {
 .route-transition .log-document { animation-delay: 180ms; }
 .route-transition .document-section:nth-of-type(4) { animation-delay: 220ms; }
 
-.route-transition[data-motion="exit"],
-.editor-scroll > .route-transition:not(:last-child) {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  pointer-events: none;
-}
-
 .profile-document {
   width: min(720px, calc(100% - 220px));
   min-width: 620px;
