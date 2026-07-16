@@ -141,24 +141,68 @@ export function ProjectsDocument() {
 }
 
 export function ContactDocument() {
+  const channels = [
+    {
+      label: "Email",
+      value: portfolio.contact.email,
+      href: `mailto:${portfolio.contact.email}`,
+      external: false,
+    },
+    {
+      label: "LinkedIn",
+      value: "/in/amir-abasi",
+      href: portfolio.social.linkedin,
+      external: true,
+    },
+    {
+      label: "X",
+      value: "@lamirabasil",
+      href: portfolio.social.twitter,
+      external: true,
+    },
+    {
+      label: "Instagram",
+      value: "@amirabasi___",
+      href: portfolio.social.instagram,
+      external: true,
+    },
+    {
+      label: "Resume",
+      value: portfolio.resume.label,
+      href: portfolio.resume.href,
+      external: true,
+    },
+  ] as const;
+
   return (
     <article className="profile-document route-document">
-      <DocumentCommand command="sh" file="contact.sh" />
+      <DocumentCommand command="cat" file="contact.sh" />
 
-      <section className="document-section document-intro contact-document" aria-labelledby="contact-title">
-        <p className="document-label">01 · CONTACT</p>
-        <h1 id="contact-title">Let&apos;s work together.</h1>
+      <section className="document-section contact-document" aria-labelledby="contact-title">
+        <p className="contact-kicker"><b aria-hidden="true" /> CONTACT</p>
+        <h1 id="contact-title">Let&apos;s build something together.</h1>
         <p className="document-headline">
-          Have a project in mind or just want to say hi? My inbox is always open.
+          Tell me about a role, or tell me about a project. Pick a channel — I reply within 24 hours, weekdays.
         </p>
-        <a className="contact-email" href={`mailto:${portfolio.contact.email}`}>
-          $ mail {portfolio.contact.email}
-        </a>
-        <div className="social-links">
-          <a href={portfolio.social.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
-          <a href={portfolio.social.twitter} target="_blank" rel="noreferrer">X ↗</a>
-          <a href={portfolio.social.instagram} target="_blank" rel="noreferrer">Instagram ↗</a>
-        </div>
+
+        <ul className="contact-channels" aria-label="Contact channels">
+          {channels.map((channel, index) => (
+            <li key={channel.label}>
+              <a
+                href={channel.href}
+                target={channel.external ? "_blank" : undefined}
+                rel={channel.external ? "noreferrer" : undefined}
+              >
+                <span className="contact-index">{String(index + 1).padStart(2, "0")}</span>
+                <span className="contact-label">{channel.label}</span>
+                <span className="contact-value">{channel.value}</span>
+                <span className="contact-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <p className="contact-tip">tip — best opener is one line on what you&apos;re building + your timeline.</p>
       </section>
     </article>
   );

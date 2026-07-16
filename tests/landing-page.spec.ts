@@ -32,7 +32,7 @@ test("opens a tab from the explorer and shows that document", async ({ page }) =
 
   await openExplorerFile(page, /contact\.sh/);
   await expect(page).toHaveURL("/contact");
-  await expect(page.getByRole("heading", { level: 1, name: "Let's work together." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Let's build something together." })).toBeVisible();
   await expect(page.getByRole("tab", { name: /contact\.sh/ })).toHaveAttribute("aria-selected", "true");
   await expect(page.getByRole("tab")).toHaveCount(4);
 });
@@ -50,7 +50,7 @@ test("changes the URL and document when tabs are selected", async ({ page }) => 
 
   await openExplorerFile(page, /contact\.sh/);
   await expect(page).toHaveURL("/contact");
-  await expect(page.getByRole("heading", { level: 1, name: "Let's work together." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Let's build something together." })).toBeVisible();
   await expect(page.getByRole("link", { name: /contact@amirabasi\.info/ })).toHaveAttribute(
     "href",
     "mailto:contact@amirabasi.info",
@@ -62,7 +62,7 @@ test("changes the URL and document when tabs are selected", async ({ page }) => 
 
   await page.goForward();
   await expect(page).toHaveURL("/contact");
-  await expect(page.getByRole("heading", { level: 1, name: "Let's work together." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Let's build something together." })).toBeVisible();
 });
 
 test("closes the active tab and returns to the previous tab", async ({ page }) => {
@@ -102,7 +102,7 @@ test("supports direct visits and refreshes for every document", async ({ page })
     { path: "/skills", heading: "skills.json", tab: /skills\.json/ },
     { path: "/peer-reviews", heading: "peer_reviews.log", tab: /peer_reviews\.log/ },
     { path: "/coding-activity", heading: "coding_activity.log", tab: /coding_activity\.log/ },
-    { path: "/contact", heading: "Let's work together.", tab: /contact\.sh/ },
+    { path: "/contact", heading: "Let's build something together.", tab: /contact\.sh/ },
   ];
 
   for (const route of routes) {

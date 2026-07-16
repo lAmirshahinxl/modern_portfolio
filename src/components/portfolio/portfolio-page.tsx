@@ -203,8 +203,13 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
         ) : null}
       </AnimatePresence>
 
-      <nav className="editor-tabs" role="tablist" aria-label="Open files">
-        <AnimatePresence initial={false}>
+      <motion.nav
+        className="editor-tabs"
+        role="tablist"
+        aria-label="Open files"
+        layoutScroll
+      >
+        <AnimatePresence initial={false} mode="popLayout">
           {visibleTabs.map((tab) => {
             const isActive = activeTarget === tab.id;
 
@@ -214,13 +219,14 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
                 className={isActive ? "editor-tab active" : "editor-tab"}
                 role="tab"
                 aria-selected={isActive}
-                layout={!prefersReducedMotion}
-                initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.96, y: -4 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.96, y: -4 }}
-                transition={{
-                  duration: prefersReducedMotion ? 0 : 0.28,
-                  ease: [0.22, 1, 0.36, 1],
+                layout={prefersReducedMotion ? false : "position"}
+                initial={prefersReducedMotion ? false : { opacity: 0, x: 8 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={prefersReducedMotion ? undefined : { opacity: 0, x: -8 }}
+                transition={prefersReducedMotion ? { duration: 0 } : {
+                  layout: { type: "spring", stiffness: 520, damping: 42, mass: 0.55 },
+                  opacity: { duration: 0.14 },
+                  x: { duration: 0.18, ease: [0.22, 1, 0.36, 1] },
                 }}
               >
                 <Link
@@ -253,7 +259,7 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
             );
           })}
         </AnimatePresence>
-      </nav>
+      </motion.nav>
 
       <main className="editor" id="main-content">
         <aside className="line-numbers" aria-hidden="true">
@@ -264,30 +270,23 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
             <motion.div
               key={pathname}
               className="route-transition"
-              initial={prefersReducedMotion ? false : {
-                opacity: 0,
-                y: 18,
-                filter: "blur(8px)",
-              }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
               animate={{
                 opacity: 1,
                 y: 0,
-                filter: "blur(0px)",
                 transition: prefersReducedMotion
                   ? { duration: 0 }
                   : {
-                      opacity: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-                      y: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-                      filter: { duration: 0.44, ease: [0.22, 1, 0.36, 1] },
+                      opacity: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
+                      y: { duration: 0.24, ease: [0.22, 1, 0.36, 1] },
                     },
               }}
               exit={prefersReducedMotion ? undefined : {
                 opacity: 0,
-                y: -14,
-                filter: "blur(6px)",
+                y: -4,
                 transition: {
-                  duration: 0.28,
-                  ease: [0.4, 0, 0.2, 1],
+                  duration: 0.1,
+                  ease: [0.4, 0, 1, 1],
                 },
               }}
             >
