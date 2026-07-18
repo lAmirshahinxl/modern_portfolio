@@ -93,6 +93,11 @@ test("opens secondary explorer files as their own tabs", async ({ page }) => {
   await openExplorerFile(page, /coding_activity\.log/);
   await expect(page).toHaveURL("/coding-activity");
   await expect(page.getByRole("heading", { level: 1, name: "coding_activity.log" })).toBeVisible();
+
+  const activityLog = page.getByRole("region", { name: "Coding activity log" });
+  await expect(activityLog).toContainText("01/2025 – Present");
+  await expect(activityLog).toContainText("Catchup");
+  await expect(activityLog).not.toContainText("[2026-");
 });
 
 test("supports direct visits and refreshes for every document", async ({ page }) => {

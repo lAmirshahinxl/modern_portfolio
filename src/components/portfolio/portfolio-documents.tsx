@@ -294,13 +294,6 @@ export function PeerReviewsDocument() {
 }
 
 export function CodingActivityDocument() {
-  const activity = portfolio.projects.slice(0, 8).map((project, index) => ({
-    stamp: `2026-${String(7 - (index % 6)).padStart(2, "0")}-${String(22 - index).padStart(2, "0")} ${String(9 + index).padStart(2, "0")}:${String(14 + index * 3).padStart(2, "0")}:00`,
-    action: index % 2 === 0 ? "ship" : "iterate",
-    target: project.title,
-    detail: project.highlights[0],
-  }));
-
   return (
     <article className="profile-document route-document">
       <DocumentCommand command="tail" file="coding_activity.log" />
@@ -309,7 +302,7 @@ export function CodingActivityDocument() {
         <p className="document-label">01 · CODING ACTIVITY</p>
         <h1 id="activity-title">coding_activity.log</h1>
         <p className="document-headline">
-          A rolling log of recent shipping and iteration across selected work.
+          Professional development activity and outcomes sourced from my résumé.
         </p>
       </section>
 
@@ -317,12 +310,12 @@ export function CodingActivityDocument() {
 
       <section className="document-section log-document" aria-label="Coding activity log">
         <ul>
-          {activity.map((entry) => (
-            <li key={`${entry.stamp}-${entry.target}`}>
-              <code>[{entry.stamp}]</code>
-              <span>{entry.action}</span>
+          {portfolio.resume.experience.map((entry) => (
+            <li key={`${entry.company}-${entry.period ?? "undated"}`}>
+              <code>[{entry.period ?? "date not listed in résumé"}]</code>
+              <span>{entry.role}</span>
               <p>
-                <strong>{entry.target}</strong> — {entry.detail}
+                <strong>{entry.company}</strong> · {entry.location} — {entry.highlights.join(". ")}.
               </p>
             </li>
           ))}

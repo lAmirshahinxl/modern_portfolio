@@ -18,10 +18,37 @@ npm run dev
 npm run lint
 npm run typecheck
 npm run build
+npm run deploy
 npm run test:e2e
 ```
 
 Playwright uses the locally installed Google Chrome on macOS when available. On another system, run `npx playwright install chromium` before running browser tests.
+
+## Deploy
+
+Deploy the current working tree to the production VPS with:
+
+```bash
+npm run deploy
+```
+
+The deployment script validates the app locally, uploads the source into an isolated timestamped directory, and builds it on the Ubuntu server so native dependencies match the VPS. It then packages the standalone output, smoke-tests it on a temporary port, and switches the `portfolio` PM2 process. If the new origin fails its health check, the script automatically restarts the previous release. PM2's reboot state is saved after a successful switch.
+
+The defaults match the current production setup:
+
+- SSH host: `turkeyVps`
+- Domain: `amirabasi.info`
+- PM2 application: `portfolio`
+- Release directory: `/var/www/modern-portfolio-releases`
+- Temporary smoke-test port: `3100`
+
+Defaults can be overridden for a single deployment:
+
+```bash
+DEPLOY_HOST=anotherHost DEPLOY_DOMAIN=example.com npm run deploy
+```
+
+Supported overrides are `DEPLOY_HOST`, `DEPLOY_DOMAIN`, `DEPLOY_APP_NAME`, `DEPLOY_RELEASE_ROOT`, and `DEPLOY_CANDIDATE_PORT`. Previous releases are retained on the server for manual rollback.
 
 ## Content
 

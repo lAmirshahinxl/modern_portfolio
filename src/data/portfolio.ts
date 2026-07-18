@@ -20,6 +20,87 @@ export const portfolio = {
   resume: {
     href: "/AmirAbasi.pdf",
     label: "AmirAbasi.pdf",
+    experience: [
+      {
+        period: "01/2025 – Present",
+        role: "Senior Flutter Developer",
+        company: "Catchup",
+        location: "USA",
+        highlights: [
+          "Developed and maintained Angular-based web components",
+          "Improved frontend scalability by restructuring feature modules",
+        ],
+      },
+      {
+        period: "01/2022 – Present",
+        role: "Senior Flutter Developer",
+        company: "ParsPack",
+        location: "Tehran, Iran",
+        highlights: [
+          "Led end-to-end development of high-traffic Flutter apps serving thousands of users",
+          "Improved performance by 35% through architecture refactoring and state management",
+          "Built reusable UI components and a design system that reduced development time by 28%",
+          "Integrated Python and Angular backends and implemented CI/CD pipelines",
+        ],
+      },
+      {
+        period: "01/2024 – 01/2025",
+        role: "Senior Flutter Developer",
+        company: "Edio",
+        location: "Turkey",
+        highlights: [
+          "Delivered high-performance mobile apps with responsive UI/UX",
+          "Reduced load times by 40% using advanced caching and lazy loading",
+        ],
+      },
+      {
+        period: "01/2022 – 01/2023",
+        role: "Senior Frontend Technical Leader",
+        company: "4WG",
+        location: "Tehran, Iran",
+        highlights: [
+          "Led a team of six developers and introduced Clean Architecture",
+          "Mentored junior developers and enforced coding standards",
+        ],
+      },
+      {
+        period: "03/2020 – 01/2022",
+        role: "Senior Flutter Developer",
+        company: "Bugloos",
+        location: "Amsterdam, Netherlands",
+        highlights: [
+          "Delivered multiple real-estate apps with rich UI/UX",
+          "Reduced the crash rate from 3.4% to 0.7%",
+        ],
+      },
+      {
+        period: "12/2017 – 12/2019",
+        role: "Senior Flutter Developer",
+        company: "EPAM",
+        location: "Tbilisi, Georgia",
+        highlights: [
+          "Built cross-platform apps with strong performance and responsiveness",
+        ],
+      },
+      {
+        period: "01/2018 – 01/2019",
+        role: "Backend Developer (Python/Django)",
+        company: "NikNext",
+        location: "Mazandaran, Iran",
+        highlights: [
+          "Built RESTful APIs and improved database performance by 25%",
+        ],
+      },
+      {
+        period: null,
+        role: "Frontend Developer (Flutter/Angular)",
+        company: "Bitmen",
+        location: "Tehran, Iran",
+        highlights: [
+          "Contributed to web and mobile projects using Flutter and Angular",
+        ],
+      },
+    ],
   },
   intro: {
     eyebrow: "Full Stack Developer",

@@ -3,7 +3,7 @@ import { CodingActivityDocument } from "@/components/portfolio/portfolio-documen
 
 export const metadata: Metadata = {
   title: "Coding Activity",
-  description: "Recent coding and shipping activity across selected projects by Amir Abasi.",
+  description: "Professional development activity and outcomes from Amir Abasi's résumé.",
   alternates: { canonical: "/coding-activity" },
   openGraph: { url: "/coding-activity" },
 };
