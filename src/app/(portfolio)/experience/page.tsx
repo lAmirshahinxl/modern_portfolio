@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { ExperienceDocument } from "@/components/portfolio/portfolio-documents";
+import { buildPageMetadata, getSeoPage } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Experience",
-  description: "Amir Abasi's full-stack development experience, technical stack, delivery record, and working principles.",
-  alternates: { canonical: "/experience" },
-  openGraph: { url: "/experience" },
-};
+export const metadata: Metadata = buildPageMetadata(getSeoPage("/experience"));
 
 export default function ExperiencePage() {
   return <ExperienceDocument />;

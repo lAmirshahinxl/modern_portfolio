@@ -14,7 +14,7 @@ async function openExplorerFile(page: Page, name: RegExp) {
 test("renders the profile document at the root route", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page).toHaveTitle(/Profile — Amir Abasi/);
+  await expect(page).toHaveTitle(/Amir Abasi — Full Stack Developer \| Flutter & React Specialist/);
   await expect(page.getByRole("heading", { level: 1, name: "Amir Abasi." })).toBeVisible();
   await expect(page.locator(".document-headline")).toContainText("Flutter");
   await expect(page.getByRole("heading", { name: "Experience & approach." })).toHaveCount(0);

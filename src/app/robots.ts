@@ -1,14 +1,29 @@
 import type { MetadataRoute } from "next";
-import { portfolio } from "@/data/portfolio";
+import { absoluteUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
+  const host = absoluteUrl("/").replace(/\/$/, "");
+
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
       },
+      {
+        userAgent: "Googlebot",
+        allow: "/",
+      },
+      {
+        userAgent: "Googlebot-Image",
+        allow: "/",
+      },
+      {
+        userAgent: "Bingbot",
+        allow: "/",
+      },
     ],
-    sitemap: `${portfolio.site.url}/sitemap.xml`,
+    sitemap: `${host}/sitemap.xml`,
+    host,
   };
 }

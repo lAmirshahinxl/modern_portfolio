@@ -8,6 +8,9 @@ export const portfolio = {
     url: "https://amirabasi.info",
     windowTitle: "~/amirabasi.info",
     blogUrl: "https://amirabasi.info/blog",
+    contentUpdatedAt: "2026-07-19",
+    locale: "en_US",
+    language: "en",
   },
   contact: {
     email: "contact@amirabasi.info",

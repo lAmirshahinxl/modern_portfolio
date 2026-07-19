@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { PeerReviewsDocument } from "@/components/portfolio/portfolio-documents";
+import { buildPageMetadata, getSeoPage } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Peer Reviews",
-  description: "Client and collaborator feedback from projects delivered by Amir Abasi.",
-  alternates: { canonical: "/peer-reviews" },
-  openGraph: { url: "/peer-reviews" },
-};
+export const metadata: Metadata = buildPageMetadata(getSeoPage("/peer-reviews"));
 
 export default function PeerReviewsPage() {
   return <PeerReviewsDocument />;

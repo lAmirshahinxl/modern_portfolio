@@ -53,7 +53,7 @@ a {
 button:focus-visible,
 a:focus-visible {
   z-index: 5;
-  outline: 2px solid #11bd88;
+  outline: 2px solid #0092E0;
   outline-offset: -2px;
 }
 
@@ -78,8 +78,8 @@ a:focus-visible {
   --muted: light-dark(#737371, #aaa9a5);
   --faint: light-dark(#aaa9a6, #6f706d);
   --border: light-dark(#dfdfdc, #353633);
-  --green: #11bd88;
-  --green-soft: light-dark(#e2f7f1, #153b31);
+  --accent: #0092E0;
+  --accent-soft: light-dark(#e5f4fc, #0f2d42);
   position: relative;
   width: 100vw;
   height: 100dvh;
@@ -98,7 +98,7 @@ a:focus-visible {
   --muted: #737371;
   --faint: #aaa9a6;
   --border: #dfdfdc;
-  --green-soft: #e2f7f1;
+  --accent-soft: #e5f4fc;
 }
 
 .ide[data-theme="dark"] {
@@ -110,7 +110,7 @@ a:focus-visible {
   --muted: #aaa9a5;
   --faint: #6f706d;
   --border: #353633;
-  --green-soft: #153b31;
+  --accent-soft: #0f2d42;
 }
 
 .titlebar {
@@ -212,8 +212,8 @@ a:focus-visible {
 
 .title-actions .hire-pill {
   border-color: rgba(17, 189, 136, 0.36);
-  color: #068961;
-  background: var(--green-soft);
+  color: #016094;
+  background: var(--accent-soft);
 }
 
 .hire-pill i {
@@ -221,7 +221,7 @@ a:focus-visible {
   height: 6px;
   margin-right: 5px;
   border-radius: 50%;
-  background: var(--green);
+  background: var(--accent);
   animation: status-pulse 1.8s ease-in-out infinite;
 }
 
@@ -350,13 +350,13 @@ a:focus-visible {
 
 .file-tree a.active {
   padding-left: 37px;
-  border-left: 2px solid var(--green);
-  color: #078e67;
-  background: var(--green-soft);
+  border-left: 2px solid var(--accent);
+  color: #016094;
+  background: var(--accent-soft);
 }
 
 .file-tree a.active i {
-  color: var(--green);
+  color: var(--accent);
 }
 
 .terminal-line {
@@ -370,7 +370,7 @@ a:focus-visible {
   height: 55px;
   padding: 0 15px;
   border-top: 1px solid var(--border);
-  color: var(--green);
+  color: var(--accent);
   font-size: 11px;
 }
 
@@ -488,11 +488,11 @@ a:focus-visible {
   left: 0;
   z-index: 2;
   height: 2px;
-  background: var(--green);
+  background: var(--accent);
 }
 
 .editor-tab.active i {
-  color: var(--green);
+  color: var(--accent);
 }
 
 .editor {
@@ -590,7 +590,7 @@ a:focus-visible {
 
 .command-row p span {
   margin-right: 8px;
-  color: var(--green);
+  color: var(--accent);
 }
 
 .command-row strong {
@@ -666,14 +666,14 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--green);
+  color: var(--accent);
 }
 
 .available b {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--green);
+  background: var(--accent);
 }
 
 .profile-document hr {
@@ -707,8 +707,8 @@ a:focus-visible {
 }
 
 .biography a:hover {
-  border-color: var(--green);
-  color: var(--green);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .numbers {
@@ -741,7 +741,7 @@ a:focus-visible {
 }
 
 .number-item:hover strong {
-  color: var(--green);
+  color: var(--accent);
   transform: translateY(-2px);
 }
 
@@ -806,7 +806,7 @@ a:focus-visible {
   align-items: center;
   gap: 10px;
   margin: 0 0 22px;
-  color: var(--green);
+  color: var(--accent);
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 11px;
   font-weight: 500;
@@ -818,7 +818,7 @@ a:focus-visible {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--green);
+  background: var(--accent);
 }
 
 .contact-document .document-headline {
@@ -857,7 +857,7 @@ a:focus-visible {
 
 .contact-channels a:hover .contact-arrow {
   transform: translateX(3px);
-  color: var(--green);
+  color: var(--accent);
 }
 
 .contact-index {
@@ -1004,7 +1004,7 @@ a:focus-visible {
   padding: 2px 8px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  color: var(--green);
+  color: var(--accent);
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 10px;
 }
@@ -1069,7 +1069,7 @@ a:focus-visible {
 
 .project-heading p {
   margin: 0 0 7px;
-  color: var(--green);
+  color: var(--accent);
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 9.5px;
   text-transform: uppercase;
@@ -1091,7 +1091,7 @@ a:focus-visible {
   align-items: center;
   gap: 6px;
   margin-top: 2px;
-  color: var(--green);
+  color: var(--accent);
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 9.5px;
 }
@@ -1100,7 +1100,7 @@ a:focus-visible {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--green);
+  background: var(--accent);
 }
 
 .project-description {
@@ -1135,7 +1135,7 @@ a:focus-visible {
   height: 4px;
   border-radius: 50%;
   content: "";
-  background: var(--green);
+  background: var(--accent);
 }
 
 .project-footer {
@@ -1160,8 +1160,8 @@ a:focus-visible {
 .project-footer > a {
   flex: 0 0 auto;
   padding-bottom: 2px;
-  border-bottom: 1px solid color-mix(in srgb, var(--green) 40%, transparent);
-  color: var(--green);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--accent);
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 10.5px;
   text-decoration: none;
@@ -1179,7 +1179,7 @@ a:focus-visible {
   height: 29px;
   padding: 0 15px;
   color: white;
-  background: var(--green);
+  background: var(--accent);
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 9.5px;
   letter-spacing: 0.01em;

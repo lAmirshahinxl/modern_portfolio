@@ -32,12 +32,12 @@ export default function OpenGraphImage() {
       >
         <span style={{ display: "flex", gap: 7, color: "#ff5f57" }}><span>●</span><span style={{ color: "#febc2e" }}>●</span><span style={{ color: "#28c840" }}>●</span></span>
         <span>{portfolio.site.windowTitle} › profile.md</span>
-        <span style={{ color: "#07966c" }}>● available_for_hire: true</span>
+        <span style={{ color: "#016094" }}>● available_for_hire: true</span>
       </div>
       <div style={{ display: "flex", flex: 1 }}>
         <div style={{ width: 220, display: "flex", flexDirection: "column", borderRight: "1px solid #dfdfdc", padding: "34px 24px", color: "#737371", fontSize: 15 }}>
           <span>⌄ EXPLORER</span>
-          <span style={{ marginTop: 45, color: "#07966c" }}>M&nbsp;&nbsp; profile.md</span>
+          <span style={{ marginTop: 45, color: "#016094" }}>M&nbsp;&nbsp; profile.md</span>
           <span style={{ marginTop: 20 }}>✳&nbsp;&nbsp; experience.tsx</span>
           <span style={{ marginTop: 20 }}>▸&nbsp;&nbsp; projects.dir</span>
         </div>
@@ -50,7 +50,7 @@ export default function OpenGraphImage() {
           </span>
         </div>
       </div>
-      <div style={{ height: 30, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", background: "#11bd88", color: "white", fontSize: 13 }}>
+      <div style={{ height: 30, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", background: "#0092E0", color: "white", fontSize: 13 }}>
         <span>⌘ main&nbsp;&nbsp;&nbsp; Flutter · React</span>
         <span>TypeScript&nbsp;&nbsp;&nbsp; {portfolio.intro.timezone}</span>
       </div>
