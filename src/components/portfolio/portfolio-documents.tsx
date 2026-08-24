@@ -1,4 +1,5 @@
 import { portfolio } from "@/data/portfolio";
+import { BorderBeam, MagneticLink, ScrollReveal, TracingBeam } from "@/components/ui/motion-primitives";
 
 function DocumentCommand({ command, file }: { command: string; file: string }) {
   return (
@@ -33,7 +34,7 @@ export function ProfileDocument() {
       <hr />
 
       <section className="document-section biography" aria-label="Biography">
-        {portfolio.about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        {portfolio.about.paragraphs.map((paragraph, index) => <ScrollReveal key={paragraph} delay={index * 0.08}><p>{paragraph}</p></ScrollReveal>)}
       </section>
     </article>
   );
@@ -55,14 +56,15 @@ export function ExperienceDocument() {
       <hr />
 
       <section className="document-section numbers" aria-labelledby="numbers-title">
+        <TracingBeam className="document-tracing-beam" />
         <h2 className="document-label" id="numbers-title">02 · BY THE NUMBERS</h2>
         <div className="numbers-grid">
           {portfolio.statistics.map((stat) => (
-            <div className="number-item" key={stat.label}>
+            <ScrollReveal className="number-item" key={stat.label} delay={0.04 * portfolio.statistics.indexOf(stat)}>
               <strong>{stat.value}</strong>
               <p>{stat.label}</p>
               <small>{stat.detail}</small>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </section>
@@ -83,8 +85,10 @@ export function ExperienceDocument() {
         <ol>
           {portfolio.principles.map((principle, index) => (
             <li key={principle}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <p>{principle}</p>
+              <ScrollReveal className="principle-row" delay={index * 0.06}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>{principle}</p>
+              </ScrollReveal>
             </li>
           ))}
         </ol>
@@ -111,7 +115,9 @@ export function ProjectsDocument() {
       <ol className="project-list" aria-label="Project portfolio">
         {portfolio.projects.map((project, index) => (
           <li key={project.title}>
+            <ScrollReveal className="project-item-reveal" delay={index * 0.035}>
             <article className="project-item">
+              {index === 0 ? <BorderBeam className="route-project-beam" /> : null}
               <div className="project-index">{String(index + 1).padStart(2, "0")}</div>
               <div className="project-content">
                 <div className="project-heading">
@@ -129,10 +135,11 @@ export function ProjectsDocument() {
                   <div className="project-tags" aria-label={`${project.title} technologies`}>
                     {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
                   </div>
-                  <a href={project.href} target="_blank" rel="noreferrer">View live ↗</a>
+                  <MagneticLink href={project.href} target="_blank" rel="noreferrer">View live ↗</MagneticLink>
                 </div>
               </div>
             </article>
+            </ScrollReveal>
           </li>
         ))}
       </ol>
@@ -188,7 +195,7 @@ export function ContactDocument() {
         <ul className="contact-channels" aria-label="Contact channels">
           {channels.map((channel, index) => (
             <li key={channel.label}>
-              <a
+              <MagneticLink
                 href={channel.href}
                 target={channel.external ? "_blank" : undefined}
                 rel={channel.external ? "noreferrer" : undefined}
@@ -197,7 +204,7 @@ export function ContactDocument() {
                 <span className="contact-label">{channel.label}</span>
                 <span className="contact-value">{channel.value}</span>
                 <span className="contact-arrow" aria-hidden="true">→</span>
-              </a>
+              </MagneticLink>
             </li>
           ))}
         </ul>

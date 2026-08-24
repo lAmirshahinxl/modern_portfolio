@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { MouseEvent, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
+import { BorderBeam, ContainerScrollProgress, MagneticLink, PointerGlow } from "@/components/ui/motion-primitives";
 import {
   defaultOpenTabs,
   ensureTabOpen,
@@ -27,15 +28,20 @@ function getSystemTheme(): Theme {
 
 function Explorer({
   activeTarget,
+  basePath,
   onNavigate,
 }: {
   activeTarget: PortfolioFileId;
+  basePath: string;
   onNavigate: () => void;
 }) {
+  const hrefFor = (href: string) => `${basePath}${href === "/" ? "" : href}` || "/";
+
   return (
     <div className="explorer-content">
       <div className="explorer-title"><span>⌄</span> EXPLORER</div>
       <div className="profile-card">
+        <BorderBeam className="explorer-beam" />
         <Image src="/brand-mark.svg" alt={`${portfolio.brand.name} logo`} width={34} height={34} />
         <div>
           <strong>{portfolio.brand.name}</strong>
@@ -45,27 +51,27 @@ function Explorer({
 
       <nav className="file-tree" aria-label="Portfolio files">
         <p><span>⌄</span> about/</p>
-        <Link className={activeTarget === "profile" ? "active" : undefined} href="/" onClick={onNavigate}>
+        <Link className={activeTarget === "profile" ? "active" : undefined} href={hrefFor("/")} onClick={onNavigate}>
           <i>M</i> profile.md
         </Link>
-        <Link className={activeTarget === "experience" ? "active" : undefined} href="/experience" onClick={onNavigate}>
+        <Link className={activeTarget === "experience" ? "active" : undefined} href={hrefFor("/experience")} onClick={onNavigate}>
           <i>✳</i> experience.tsx
         </Link>
         <p><span>⌄</span> work/</p>
-        <Link className={activeTarget === "projects" ? "active" : undefined} href="/projects" onClick={onNavigate}>
+        <Link className={activeTarget === "projects" ? "active" : undefined} href={hrefFor("/projects")} onClick={onNavigate}>
           <i>▸</i> projects.dir
         </Link>
-        <Link className={activeTarget === "skills" ? "active" : undefined} href="/skills" onClick={onNavigate}>
+        <Link className={activeTarget === "skills" ? "active" : undefined} href={hrefFor("/skills")} onClick={onNavigate}>
           <i>{`{}`}</i> skills.json
         </Link>
-        <Link className={activeTarget === "peer-reviews" ? "active" : undefined} href="/peer-reviews" onClick={onNavigate}>
+        <Link className={activeTarget === "peer-reviews" ? "active" : undefined} href={hrefFor("/peer-reviews")} onClick={onNavigate}>
           <i>≡</i> peer_reviews.log
         </Link>
         <p><span>⌄</span> meta/</p>
-        <Link className={activeTarget === "coding-activity" ? "active" : undefined} href="/coding-activity" onClick={onNavigate}>
+        <Link className={activeTarget === "coding-activity" ? "active" : undefined} href={hrefFor("/coding-activity")} onClick={onNavigate}>
           <i>≡</i> coding_activity.log
         </Link>
-        <Link className={activeTarget === "contact" ? "active" : undefined} href="/contact" onClick={onNavigate}>
+        <Link className={activeTarget === "contact" ? "active" : undefined} href={hrefFor("/contact")} onClick={onNavigate}>
           <i>$</i> contact.sh
         </Link>
       </nav>
@@ -74,10 +80,14 @@ function Explorer({
   );
 }
 
-export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
+export function PortfolioPage({ children, basePath = "" }: Readonly<{ children: ReactNode; basePath?: string }>) {
   const pathname = usePathname();
   const router = useRouter();
-  const activeTarget = getFileIdFromPathname(pathname);
+  const routePath = basePath && pathname.startsWith(basePath)
+    ? pathname.slice(basePath.length) || "/"
+    : pathname;
+  const activeTarget = getFileIdFromPathname(routePath);
+  const hrefFor = (href: string) => `${basePath}${href === "/" ? "" : href}` || "/";
   const activeTab = portfolioFileById[activeTarget];
   const editorScrollRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -85,10 +95,10 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
   const [themeOverride, setThemeOverride] = useState<Theme | null>(null);
   const [systemTheme, setSystemTheme] = useState<Theme>("light");
   const [openTabs, setOpenTabs] = useState<PortfolioFileId[]>(() =>
-    ensureTabOpen(defaultOpenTabs, getFileIdFromPathname(pathname)),
+    ensureTabOpen(defaultOpenTabs, getFileIdFromPathname(routePath)),
   );
   const [tabHistory, setTabHistory] = useState<PortfolioFileId[]>(() => [
-    getFileIdFromPathname(pathname),
+    getFileIdFromPathname(routePath),
   ]);
   const [trackedTarget, setTrackedTarget] = useState(activeTarget);
 
@@ -147,11 +157,13 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
     if (activeTarget !== id) return;
 
     const previous = nextHistory[nextHistory.length - 1] ?? pinnedTabId;
-    router.push(portfolioFileById[previous].href);
+    router.push(hrefFor(portfolioFileById[previous].href));
   }
 
   return (
     <div className="ide" data-theme={themeOverride ?? undefined}>
+      <PointerGlow className="ide-pointer-glow" />
+      <div className="ide-ambient-grid" aria-hidden="true" />
       <div className="sr-only">
         <p>{portfolio.brand.name} — {portfolio.intro.eyebrow}</p>
         <p>{portfolio.intro.headline}</p>
@@ -181,7 +193,8 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
           <a className="hire-pill" href={`mailto:${portfolio.contact.email}`}><i /> <span className="wide-label">available_for_</span>hire<span className="wide-label">: true</span></a>
           <a href={portfolio.site.blogUrl} target="_blank" rel="noreferrer">blog</a>
           <a className="resume" href={portfolio.resume.href} target="_blank" rel="noreferrer">{portfolio.resume.label}</a>
-          <Link className="terminal-action" aria-label="Open contact terminal" href="/contact">&gt;_</Link>
+          <MagneticLink className="public-view-link" href="/">public site</MagneticLink>
+          <Link className="terminal-action" aria-label="Open contact terminal" href={hrefFor("/contact")}>&gt;_</Link>
           <button aria-label="Toggle color theme" aria-pressed={resolvedTheme === "dark"} onClick={toggleTheme}>
             {resolvedTheme === "dark" ? "☼" : "☾"}
           </button>
@@ -189,7 +202,7 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
       </header>
 
       <aside className="explorer desktop-explorer">
-        <Explorer activeTarget={activeTarget} onNavigate={() => setMenuOpen(false)} />
+        <Explorer basePath={basePath} activeTarget={activeTarget} onNavigate={() => setMenuOpen(false)} />
       </aside>
 
       <AnimatePresence>
@@ -197,7 +210,7 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
           <>
             <motion.button className="drawer-backdrop" aria-label="Close explorer" onClick={() => setMenuOpen(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
             <motion.aside className="explorer mobile-explorer" initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}>
-              <Explorer activeTarget={activeTarget} onNavigate={() => setMenuOpen(false)} />
+              <Explorer basePath={basePath} activeTarget={activeTarget} onNavigate={() => setMenuOpen(false)} />
             </motion.aside>
           </>
         ) : null}
@@ -230,7 +243,7 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
                 }}
               >
                 <Link
-                  href={tab.href}
+                  href={hrefFor(tab.href)}
                   aria-current={isActive ? "page" : undefined}
                 >
                   <i>{tab.icon}</i>
@@ -266,6 +279,7 @@ export function PortfolioPage({ children }: Readonly<{ children: ReactNode }>) {
           {lineNumbers.map((line) => <span key={line}>{line}</span>)}
         </aside>
         <div className="editor-scroll" ref={editorScrollRef}>
+          <ContainerScrollProgress containerRef={editorScrollRef} className="editor-scroll-progress" />
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={pathname}

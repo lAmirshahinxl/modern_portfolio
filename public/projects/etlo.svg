@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8a84ee"/><stop offset="1" stop-color="#c7c5ff"/></linearGradient>
+    <pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse"><path d="M38 0H0V38" fill="none" stroke="#211d69" stroke-opacity=".2"/></pattern>
+  </defs>
+  <rect width="800" height="440" fill="url(#bg)"/><rect width="800" height="440" fill="url(#grid)"/>
+  <rect x="271" y="128" width="258" height="168" rx="84" fill="none" stroke="#211d69" stroke-opacity=".54" stroke-width="2"/><circle cx="400" cy="212" r="52" fill="none" stroke="#211d69" stroke-opacity=".35" stroke-width="2"/><path d="M400 105v214M294 212h212" stroke="#211d69" stroke-opacity=".26"/>
+  <text x="38" y="51" fill="#211d69" font-family="Arial,Helvetica,sans-serif" font-size="17" letter-spacing="3">ETLO / ONE APP / MANY SERVICES</text>
+  <text x="38" y="397" fill="#211d69" font-family="monospace" font-size="13" letter-spacing="2">04 — SUPER APP / COMMUNITY</text>
+</svg>
