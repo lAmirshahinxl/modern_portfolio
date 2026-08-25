@@ -9,6 +9,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { ParallaxComponent } from "@/components/ui/parallax-scrolling";
 import { CountUp, MagneticLink, PointerGlow, ScrollProgress, TextReveal, TracingBeam, useSpotlight } from "@/components/ui/motion-primitives";
 import { Footer } from "@/components/ui/footer-section";
+import { PixelImage } from "@/components/ui/pixel-image";
 import { portfolio } from "@/data/portfolio";
 
 const capabilities = [
@@ -233,13 +234,14 @@ export function LandingPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={reducedMotion ? { duration: 0 } : { duration: 0.9, ease, delay: 0.3 }}
             >
-              <Image
-                className="signal-portrait"
+              <PixelImage
+                className="signal-pixel-image"
                 src="/hero-image.webp"
-                alt="Amir Abasi"
-                fill
-                priority
-                sizes="(max-width: 820px) 0px, 340px"
+                alt="Portrait of Amir Abasi"
+                customGrid={{ rows: 5, cols: 4 }}
+                pixelFadeInDuration={1200}
+                maxAnimationDelay={700}
+                colorRevealDelay={900}
               />
               <span className="signal-panel-scrim" aria-hidden="true" />
               <div className="signal-panel-top"><span>signal / 2026</span><span>AA—01</span></div>
