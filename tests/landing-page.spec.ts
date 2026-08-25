@@ -19,7 +19,11 @@ test("renders the redesigned landing page at the root route", async ({ page }) =
   await expect(page.locator(".parallax")).toHaveCount(1);
   await expect(page.locator("[data-parallax-layer]")).toHaveCount(3);
   await expect(page.getByRole("heading", { name: /A calm hand for/ })).toBeVisible();
-  await expect(page.locator(".landing-project")).toHaveCount(6);
+  await expect(page.locator(".landing-project")).toHaveCount(10);
+  await expect(page.getByRole("heading", { name: "A track record of shipping." })).toBeVisible();
+  await expect(page.getByText("Senior Frontend Technical Leader", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The tools and principles." })).toBeVisible();
+  await expect(page.getByText("peer.fullstack", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "Open developer view" })).toHaveAttribute("href", "/developer-view");
   await expect(page.locator(".ide")).toHaveCount(0);
 });

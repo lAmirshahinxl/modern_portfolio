@@ -136,6 +136,28 @@ export const portfolio = {
     "Full-stack means owning the path from API to pixel, not handing off half the problem.",
     "Fast delivery only counts when the work stays maintainable after launch.",
   ],
+  reviews: [
+    {
+      stamp: "2025-11-02 14:22:08",
+      source: "client.exchange",
+      message: "Shipped a production-ready Flutter trading app with clear communication and steady delivery.",
+    },
+    {
+      stamp: "2025-08-19 09:41:33",
+      source: "client.wallet",
+      message: "Handled sensitive crypto wallet flows carefully — security and UX both felt intentional.",
+    },
+    {
+      stamp: "2025-04-07 16:05:51",
+      source: "client.education",
+      message: "Turned a language-learning product into a polished cross-platform experience on a tight timeline.",
+    },
+    {
+      stamp: "2024-12-11 11:18:02",
+      source: "peer.fullstack",
+      message: "Owns the path from API to pixel. Reliable collaborator on complex multi-platform work.",
+    },
+  ],
   skills: [
     "Flutter",
     "Dart",

@@ -34,15 +34,16 @@ const footerLinks: FooterSection[] = [
       { title: "Selected work", href: "#selected-work" },
       { title: "Capabilities", href: "#capabilities" },
       { title: "About", href: "#about" },
+      { title: "Experience", href: "#experience" },
       { title: "Developer view", href: "/developer-view", icon: Code2Icon },
     ],
   },
   {
     label: "Background",
     links: [
-      { title: "Experience", href: "/developer-view/experience" },
-      { title: "Projects", href: "/developer-view/projects" },
-      { title: "Skills", href: "/developer-view/skills" },
+      { title: "Projects", href: "#selected-work" },
+      { title: "Skills", href: "#toolkit" },
+      { title: "Peer reviews", href: "#reviews" },
       { title: "Résumé", href: portfolio.resume.href, icon: FileTextIcon },
     ],
   },
@@ -53,6 +54,7 @@ const footerLinks: FooterSection[] = [
       { title: "LinkedIn", href: portfolio.social.linkedin, icon: Globe2Icon, external: true },
       { title: "Instagram", href: portfolio.social.instagram, icon: CameraIcon, external: true },
       { title: "X / Twitter", href: portfolio.social.twitter, icon: MessageCircleIcon, external: true },
+      { title: "Blog", href: portfolio.site.blogUrl, icon: Globe2Icon, external: true },
     ],
   },
   {
