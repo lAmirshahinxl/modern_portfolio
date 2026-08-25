@@ -213,7 +213,7 @@ export function LandingPage() {
       <main id="main-content">
         <ParallaxComponent className="landing-hero-parallax" id="top" labelledBy="landing-title">
           <div className="landing-hero-grid">
-            <AuroraBackground />
+            {/*<AuroraBackground />*/}
             <motion.div
               className="landing-hero-copy"
               initial={reducedMotion ? false : { opacity: 0, y: 22 }}
