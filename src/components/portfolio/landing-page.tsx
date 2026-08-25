@@ -209,7 +209,7 @@ export function LandingPage() {
               <motion.h1 id="landing-title" initial={reducedMotion ? false : { opacity: 1 }} animate={{ opacity: 1 }} transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease, delay: 0.22 }}><TextReveal text="I build software that" delay={0.22} /> <em><TextReveal text="feels clear." delay={0.42} /></em></motion.h1>
               <p className="hero-lede">{portfolio.intro.headline} From crypto wallets to AI platforms, I bring the product from first screen to dependable launch.</p>
               <motion.div className="hero-actions" initial={reducedMotion ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={reducedMotion ? { duration: 0 } : { duration: 0.55, ease, delay: 0.36 }}>
-                <MagneticLink className="button button-primary" href="#selected-work">See selected work <span>↓</span></MagneticLink>
+                <MagneticLink className="button button-primary" href={portfolio.resume.href} download={portfolio.resume.label}>Download résumé <span>↓</span></MagneticLink>
                 <Link className="button button-ghost" href="/developer-view">Open developer view <span>↗</span></Link>
               </motion.div>
               <div className="hero-signature"><span>available_for_hire</span><strong>true</strong><i /></div>
