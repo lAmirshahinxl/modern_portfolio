@@ -18,6 +18,11 @@ const navigationItems = [
     icon: <HomeIcon aria-hidden="true" />,
   },
   {
+    title: 'About',
+    href: '#about',
+    icon: <ScrollText aria-hidden="true" />,
+  },
+  {
     title: 'Work',
     href: '#selected-work',
     icon: <Package aria-hidden="true" />,
@@ -31,11 +36,6 @@ const navigationItems = [
     title: 'Experience',
     href: '#experience',
     icon: <Activity aria-hidden="true" />,
-  },
-  {
-    title: 'About',
-    href: '#about',
-    icon: <ScrollText aria-hidden="true" />,
   },
   {
     title: 'Contact',
