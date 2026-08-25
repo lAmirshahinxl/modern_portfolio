@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, type ReactNode } from "react";
 import { ParallaxComponent } from "@/components/ui/parallax-scrolling";
-import { AuroraBackground, BorderBeam, CountUp, MagneticLink, PointerGlow, ScrollProgress, TextReveal, TracingBeam, useSpotlight } from "@/components/ui/motion-primitives";
+import { AuroraBackground, CountUp, MagneticLink, PointerGlow, ScrollProgress, TextReveal, TracingBeam, useSpotlight } from "@/components/ui/motion-primitives";
 import { portfolio } from "@/data/portfolio";
 
 const capabilities = [
@@ -148,7 +148,6 @@ function SpotlightCapability({
 export function LandingPage() {
   const reducedMotion = useReducedMotion();
   const landingRootRef = useRef<HTMLDivElement>(null);
-  const signalTilt = useSpotlight({ tilt: true, tiltStrength: 3.5 });
   const featuredProjects = portfolio.projects.slice(0, 6);
   const recentExperience = portfolio.resume.experience.slice(0, 4);
 
@@ -232,16 +231,22 @@ export function LandingPage() {
             </motion.div>
 
             <motion.aside
-              {...signalTilt}
               className="hero-signal-panel"
               aria-label="Profile snapshot"
               initial={reducedMotion ? false : { opacity: 0, scale: 0.94, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={reducedMotion ? { duration: 0 } : { duration: 0.9, ease, delay: 0.3 }}
             >
-              <BorderBeam />
+              <Image
+                className="signal-portrait"
+                src="/hero-image.webp"
+                alt="Amir Abasi"
+                fill
+                priority
+                sizes="(max-width: 820px) 0px, 340px"
+              />
+              <span className="signal-panel-scrim" aria-hidden="true" />
               <div className="signal-panel-top"><span>signal / 2026</span><span>AA—01</span></div>
-              <div className="signal-orbit" aria-hidden="true"><div /><div /><span>AA</span></div>
               <div className="signal-panel-bottom">
                 <p>Building apps<br />Code artist<br />Flutter dev.</p>
                 <span>{portfolio.intro.timezone}</span>
