@@ -136,6 +136,28 @@ export const portfolio = {
     "Full-stack means owning the path from API to pixel, not handing off half the problem.",
     "Fast delivery only counts when the work stays maintainable after launch.",
   ],
+  reviews: [
+    {
+      stamp: "2025-11-02 14:22:08",
+      source: "client.exchange",
+      message: "Shipped a production-ready Flutter trading app with clear communication and steady delivery.",
+    },
+    {
+      stamp: "2025-08-19 09:41:33",
+      source: "client.wallet",
+      message: "Handled sensitive crypto wallet flows carefully — security and UX both felt intentional.",
+    },
+    {
+      stamp: "2025-04-07 16:05:51",
+      source: "client.education",
+      message: "Turned a language-learning product into a polished cross-platform experience on a tight timeline.",
+    },
+    {
+      stamp: "2024-12-11 11:18:02",
+      source: "peer.fullstack",
+      message: "Owns the path from API to pixel. Reliable collaborator on complex multi-platform work.",
+    },
+  ],
   skills: [
     "Flutter",
     "Dart",
@@ -158,6 +180,7 @@ export const portfolio = {
     {
       title: "Bitimen Crypto Currency Application",
       category: "Application Development",
+      image: "/projects/bitimen.jpg",
       description:
         "Trade smarter, not harder. Bitimen puts the power of cryptocurrency trading in your pocket on Android and iOS.",
       tags: ["Flutter", "Android", "iOS", "Crypto"],
@@ -168,6 +191,7 @@ export const portfolio = {
     {
       title: "Aqila Crypto Currency Wallet",
       category: "Application Development",
+      image: "/projects/aqila.jpg",
       description:
         "A secure wallet for storing the private and public keys used to interact with blockchain networks and manage multiple cryptocurrencies.",
       tags: ["Flutter", "Blockchain", "Crypto Wallet", "Security"],
@@ -178,6 +202,7 @@ export const portfolio = {
     {
       title: "Catchup AI Web and Mobile Application",
       category: "Application & Web Development",
+      image: "/projects/catchup.png",
       description:
         "A platform with tools for managing and analyzing data from social media, websites, and other online sources.",
       tags: ["Flutter", "Web", "AI", "Data Analytics"],
@@ -188,6 +213,7 @@ export const portfolio = {
     {
       title: "Etlo Super Application",
       category: "Application Development",
+      image: "/projects/etlo.png",
       description:
         "A super app that connects users with businesses, doctors, consultants, and professional services for everyday needs.",
       tags: ["Flutter", "Super App", "Services", "Multi-platform"],
@@ -198,6 +224,7 @@ export const portfolio = {
     {
       title: "Hiddify Application",
       category: "Application Development",
+      image: "/projects/hiddify.png",
       description:
         "An internet freedom solution designed to provide simple and secure access to an unrestricted internet.",
       tags: ["Flutter", "VPN", "Internet Freedom", "Security"],
@@ -208,6 +235,7 @@ export const portfolio = {
     {
       title: "Vibez App",
       category: "Application Development",
+      image: "/projects/vibez.webp",
       description:
         "An event companion for discovery, communication, ticket purchases, community membership, and cashless payments.",
       tags: ["Flutter", "Events", "Payments", "Social"],
@@ -218,6 +246,7 @@ export const portfolio = {
     {
       title: "Nobitex Site",
       category: "Website Development",
+      image: "/projects/nobitex.jpg",
       description:
         "The web experience for Iran's largest digital currency exchange, supporting professional peer-to-peer cryptocurrency trading.",
       tags: ["Angular", "Web", "Crypto Exchange", "Trading"],
@@ -228,6 +257,7 @@ export const portfolio = {
     {
       title: "Zaban Application",
       category: "Application Development",
+      image: "/projects/zaban-mobile.jpg",
       description:
         "A language-learning app that tailors content to each user's interests and level to support engaging, self-paced English study.",
       tags: ["Flutter", "Education", "Language Learning", "Mobile"],
@@ -238,6 +268,7 @@ export const portfolio = {
     {
       title: "ZalTV Television Application",
       category: "Application Development",
+      image: "/projects/zaltv.jpg",
       description:
         "A fast, straightforward IPTV player built for large screens and simple navigation with television remote controls.",
       tags: ["Flutter", "IPTV", "Streaming", "TV"],
@@ -248,6 +279,7 @@ export const portfolio = {
     {
       title: "Zaban PWA",
       category: "Flutter Development",
+      image: "/projects/zaban-laptop.jpg",
       description:
         "A progressive web version of Zaban that delivers personalized, self-paced language learning across platforms.",
       tags: ["Flutter", "PWA", "Web", "Language Learning"],

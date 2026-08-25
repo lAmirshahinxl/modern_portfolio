@@ -7,7 +7,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, type ReactNode } from "react";
 import { ParallaxComponent } from "@/components/ui/parallax-scrolling";
-import { AuroraBackground, BorderBeam, CountUp, MagneticLink, PointerGlow, ScrollProgress, TextReveal, TracingBeam, useSpotlight } from "@/components/ui/motion-primitives";
+import { CountUp, MagneticLink, PointerGlow, ScrollProgress, TextReveal, TracingBeam, useSpotlight } from "@/components/ui/motion-primitives";
+import { Footer } from "@/components/ui/footer-section";
+import { PixelImage } from "@/components/ui/pixel-image";
 import { portfolio } from "@/data/portfolio";
 
 const capabilities = [
@@ -31,15 +33,7 @@ const capabilities = [
   },
 ] as const;
 
-const projectAccents = ["blue", "coral", "lime", "violet", "sand", "blue"] as const;
-const projectImages = [
-  "/projects/bitimen.svg",
-  "/projects/aqila.svg",
-  "/projects/catchup.svg",
-  "/projects/etlo.svg",
-  "/projects/hiddify.svg",
-  "/projects/vibez.svg",
-] as const;
+const projectAccents = ["blue", "coral", "lime", "violet", "sand", "blue", "coral", "lime", "violet"] as const;
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -76,13 +70,11 @@ function SpotlightProject({
   project,
   index,
   accent,
-  image,
   reducedMotion,
 }: {
   project: (typeof portfolio.projects)[number];
   index: number;
   accent: (typeof projectAccents)[number];
-  image: (typeof projectImages)[number];
   reducedMotion: boolean | null;
 }) {
   const spotlight = useSpotlight({ tilt: true, tiltStrength: 4.5 });
@@ -99,7 +91,7 @@ function SpotlightProject({
       whileTap={reducedMotion ? undefined : { scale: 0.992 }}
     >
       <div className="project-art">
-        <Image className="project-art-image" src={image} alt={`${project.title} project preview`} fill sizes="(max-width: 560px) calc(100vw - 32px), 50vw" />
+        <Image className="project-art-image" src={project.image} alt={`${project.title} project preview`} fill sizes="(max-width: 560px) calc(100vw - 32px), 50vw" />
         <span>{String(index + 1).padStart(2, "0")}</span>
         <div className="project-art-shape" />
         <b>{project.tags[0]}</b>
@@ -108,8 +100,11 @@ function SpotlightProject({
         <div className="project-meta"><span>{project.category}</span><span className="project-status"><i /> {project.status}</span></div>
         <h3>{project.title}</h3>
         <p>{project.description}</p>
+        <ul className="landing-project-highlights" aria-label={`${project.title} highlights`}>
+          {project.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
+        </ul>
         <div className="project-card-footer">
-          <div className="project-tags">{project.tags.slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
+          <div className="project-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
           <MagneticLink href={project.href} target="_blank" rel="noreferrer" aria-label={`View ${project.title}`}>View <span>↗</span></MagneticLink>
         </div>
       </div>
@@ -148,9 +143,8 @@ function SpotlightCapability({
 export function LandingPage() {
   const reducedMotion = useReducedMotion();
   const landingRootRef = useRef<HTMLDivElement>(null);
-  const signalTilt = useSpotlight({ tilt: true, tiltStrength: 3.5 });
-  const featuredProjects = portfolio.projects.slice(0, 6);
-  const recentExperience = portfolio.resume.experience.slice(0, 4);
+  const projects = portfolio.projects;
+  const experience = portfolio.resume.experience;
 
   useEffect(() => {
     const root = landingRootRef.current;
@@ -204,8 +198,10 @@ export function LandingPage() {
         </Link>
         <nav aria-label="Primary navigation">
           <a href="#selected-work">Work</a>
+          <a href="#experience">Experience</a>
           <a href="#capabilities">Capabilities</a>
           <a href="#about">About</a>
+          <a href="#contact">Contact</a>
         </nav>
         <MagneticLink className="landing-nav-cta" href={`mailto:${portfolio.contact.email}`}><span>Let&apos;s talk</span><b>↗</b></MagneticLink>
       </header>
@@ -221,7 +217,7 @@ export function LandingPage() {
               transition={reducedMotion ? { duration: 0 } : { duration: 0.8, ease, delay: 0.1 }}
             >
               <p className="eyebrow"><span className="eyebrow-dot" /> {portfolio.intro.availability} <span className="eyebrow-slash">/</span> {portfolio.intro.location}</p>
-              <p className="hero-kicker">FULL-STACK / MOBILE / WEB</p>
+              <p className="hero-kicker">{portfolio.intro.eyebrow.toUpperCase()} / MOBILE / WEB</p>
               <motion.h1 id="landing-title" initial={reducedMotion ? false : { opacity: 1 }} animate={{ opacity: 1 }} transition={reducedMotion ? { duration: 0 } : { duration: 0.7, ease, delay: 0.22 }}><TextReveal text="I build software that" delay={0.22} /> <em><TextReveal text="feels clear." delay={0.42} /></em></motion.h1>
               <p className="hero-lede">{portfolio.intro.headline} From crypto wallets to AI platforms, I bring the product from first screen to dependable launch.</p>
               <motion.div className="hero-actions" initial={reducedMotion ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={reducedMotion ? { duration: 0 } : { duration: 0.55, ease, delay: 0.36 }}>
@@ -232,23 +228,30 @@ export function LandingPage() {
             </motion.div>
 
             <motion.aside
-              {...signalTilt}
               className="hero-signal-panel"
               aria-label="Profile snapshot"
               initial={reducedMotion ? false : { opacity: 0, scale: 0.94, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={reducedMotion ? { duration: 0 } : { duration: 0.9, ease, delay: 0.3 }}
             >
-              <BorderBeam />
+              <PixelImage
+                className="signal-pixel-image"
+                src="/hero-image.webp"
+                alt="Portrait of Amir Abasi"
+                customGrid={{ rows: 5, cols: 4 }}
+                pixelFadeInDuration={1200}
+                maxAnimationDelay={700}
+                colorRevealDelay={900}
+              />
+              <span className="signal-panel-scrim" aria-hidden="true" />
               <div className="signal-panel-top"><span>signal / 2026</span><span>AA—01</span></div>
-              <div className="signal-orbit" aria-hidden="true"><div /><div /><span>AA</span></div>
               <div className="signal-panel-bottom">
                 <p>Building apps<br />Code artist<br />Flutter dev.</p>
                 <span>{portfolio.intro.timezone}</span>
               </div>
             </motion.aside>
           </div>
-          <div className="hero-footnote"><span>scroll to explore</span><span className="hero-line" /><span>01 / 05</span></div>
+          <div className="hero-footnote"><span>scroll to explore</span><span className="hero-line" /><span>01 / 08</span></div>
         </ParallaxComponent>
 
         <div className="signal-marquee" aria-label="Core stack">
@@ -265,6 +268,7 @@ export function LandingPage() {
             <h2 id="about-title">A calm hand for <span>complex products.</span></h2>
             <div className="intro-copy">
               {portfolio.about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              <p className="intro-statement">{portfolio.intro.statement}</p>
               <Link className="text-link" href="/developer-view/experience">More about how I work <span>↗</span></Link>
             </div>
           </div>
@@ -273,6 +277,7 @@ export function LandingPage() {
               <div className="stat-ribbon-item" key={stat.label}>
                 <strong><CountUp value={stat.value} /></strong>
                 <span>{stat.label}</span>
+                <small>{stat.detail}</small>
               </div>
             ))}
           </div>
@@ -285,9 +290,9 @@ export function LandingPage() {
             <p>Mobile, web, AI, crypto, and everything in between.</p>
           </div>
           <div className="project-grid" data-scroll-layer data-scroll-speed="7">
-            {featuredProjects.map((project, index) => <SpotlightProject key={project.title} project={project} index={index} accent={projectAccents[index]} image={projectImages[index]} reducedMotion={reducedMotion} />)}
+            {projects.map((project, index) => <SpotlightProject key={project.title} project={project} index={index} accent={projectAccents[index % projectAccents.length]} reducedMotion={reducedMotion} />)}
           </div>
-          <div className="section-end-link"><Link className="text-link" href="/developer-view/projects">See all projects <span>↗</span></Link></div>
+          <div className="section-end-link"><Link className="text-link" href="/developer-view/projects">Open the developer project view <span>↗</span></Link></div>
         </RevealSection>
 
         <RevealSection className="landing-section capabilities-section" id="capabilities" labelledBy="capabilities-title">
@@ -301,17 +306,20 @@ export function LandingPage() {
           </div>
         </RevealSection>
 
-        <RevealSection className="landing-section experience-section" labelledBy="experience-title">
-          <div className="section-marker"><span>05</span><span>RECENTLY / THE WORK LOG</span></div>
+        <RevealSection className="landing-section experience-section" id="experience" labelledBy="experience-title">
+          <div className="section-marker"><span>05</span><span>EXPERIENCE / THE WORK LOG</span></div>
           <TracingBeam className="experience-tracing-beam" />
           <div className="experience-grid" data-scroll-layer data-scroll-speed="-7">
             <div>
               <h2 id="experience-title">A track record of <span>shipping.</span></h2>
               <p className="experience-note">{portfolio.intro.experience} across teams in {portfolio.intro.location} and beyond.</p>
-              <Link className="text-link" href="/developer-view/coding-activity">Open the full work log <span>↗</span></Link>
+              <div className="experience-actions">
+                <Link className="text-link" href="/developer-view/coding-activity">Open the developer work log <span>↗</span></Link>
+                <a className="text-link" href={portfolio.resume.href} target="_blank" rel="noreferrer">Download résumé <span>↗</span></a>
+              </div>
             </div>
             <ol className="experience-list">
-              {recentExperience.map((entry, index) => (
+              {experience.map((entry, index) => (
                 <motion.li
                   key={`${entry.company}-${entry.role}`}
                   initial={reducedMotion ? false : { opacity: 0, x: 18 }}
@@ -319,8 +327,16 @@ export function LandingPage() {
                   viewport={{ once: true, amount: 0.2 }}
                   transition={reducedMotion ? { duration: 0 } : { duration: 0.48, ease, delay: index * 0.07 }}
                 >
-                  <span className="experience-period">{entry.period ?? "Earlier"}</span>
-                  <div><strong>{entry.role}</strong><span>{entry.company} · {entry.location}</span></div>
+                  <div className="experience-entry-meta">
+                    <span className="experience-period">{entry.period ?? "Earlier"}</span>
+                    <span>{entry.company} · {entry.location}</span>
+                  </div>
+                  <div className="experience-entry-content">
+                    <strong>{entry.role}</strong>
+                    <ul className="experience-highlights">
+                      {entry.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
+                    </ul>
+                  </div>
                   <span className="experience-arrow">↗</span>
                 </motion.li>
               ))}
@@ -328,21 +344,91 @@ export function LandingPage() {
           </div>
         </RevealSection>
 
-        <RevealSection className="landing-cta-section" labelledBy="cta-title">
+        <RevealSection className="landing-section toolkit-section" id="toolkit" labelledBy="toolkit-title">
+          <div className="section-marker"><span>06</span><span>TOOLKIT / THE FULL PICTURE</span></div>
+          <div className="toolkit-heading-row" data-scroll-layer data-scroll-speed="-5">
+            <div>
+              <h2 id="toolkit-title">The tools and <span>principles.</span></h2>
+              <p>Every project is a balance of technical range, product judgment, and decisions that keep the work useful after launch.</p>
+            </div>
+            <p className="toolkit-summary">{portfolio.intro.summary}</p>
+          </div>
+
+          <div className="toolkit-content" data-scroll-layer data-scroll-speed="7">
+            <section className="toolkit-panel" aria-labelledby="stack-title">
+              <p className="toolkit-label" id="stack-title">01 · TECH STACK</p>
+              <ul className="public-skill-list">
+                {portfolio.skills.map((skill) => <li key={skill}>{skill}</li>)}
+              </ul>
+            </section>
+            <section className="toolkit-panel principles-panel" aria-labelledby="principles-title">
+              <p className="toolkit-label" id="principles-title">02 · HOW I WORK</p>
+              <ol className="public-principles-list">
+                {portfolio.principles.map((principle, index) => (
+                  <motion.li
+                    key={principle}
+                    initial={reducedMotion ? false : { opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.25 }}
+                    transition={reducedMotion ? { duration: 0 } : { duration: 0.42, ease, delay: index * 0.06 }}
+                  >
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <p>{principle}</p>
+                  </motion.li>
+                ))}
+              </ol>
+            </section>
+          </div>
+        </RevealSection>
+
+        <RevealSection className="landing-section reviews-section" id="reviews" labelledBy="reviews-title">
+          <div className="section-marker"><span>07</span><span>PEER REVIEWS / SHIPPED TOGETHER</span></div>
+          <div className="section-heading-row reviews-heading" data-scroll-layer data-scroll-speed="-6">
+            <h2 id="reviews-title">Good work leaves <span>a trace.</span></h2>
+            <p>Feedback from clients and collaborators across shipped products.</p>
+          </div>
+          <div className="reviews-grid" data-scroll-layer data-scroll-speed="6">
+            {portfolio.reviews.map((review, index) => (
+              <motion.article
+                className="review-card"
+                key={review.stamp}
+                initial={reducedMotion ? false : { opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={reducedMotion ? { duration: 0 } : { duration: 0.48, ease, delay: index * 0.07 }}
+              >
+                <div className="review-meta">
+                  <time dateTime={review.stamp.replace(" ", "T")}>{review.stamp}</time>
+                  <span>{review.source}</span>
+                </div>
+                <p>“{review.message}”</p>
+              </motion.article>
+            ))}
+          </div>
+        </RevealSection>
+
+        <RevealSection className="landing-cta-section" id="contact" labelledBy="cta-title">
           <div className="cta-bracket cta-bracket-left" aria-hidden="true" data-scroll-layer data-scroll-speed="14" />
           <div className="cta-bracket cta-bracket-right" aria-hidden="true" data-scroll-layer data-scroll-speed="-14" />
+          <p className="section-marker light-marker"><span>08</span><span>CONTACT / OPEN TO OPPORTUNITIES</span></p>
           <p className="eyebrow"><span className="eyebrow-dot" /> currently available</p>
           <h2 id="cta-title">Have a good problem?<br /><em>Let&apos;s make it useful.</em></h2>
           <MagneticLink className="button button-primary" href={`mailto:${portfolio.contact.email}`}>Start a conversation <span>↗</span></MagneticLink>
           <p className="cta-email">{portfolio.contact.email}</p>
+          <p className="cta-response-note">Tell me about a role, or tell me about a project. Pick a channel — I reply within 24 hours, weekdays.</p>
+          <nav className="cta-channel-list" aria-label="Contact channels">
+            <a href={`mailto:${portfolio.contact.email}`}><span>Email</span><strong>{portfolio.contact.email}</strong><b>↗</b></a>
+            <a href={portfolio.social.linkedin} target="_blank" rel="noreferrer"><span>LinkedIn</span><strong>/in/amir-abasi</strong><b>↗</b></a>
+            <a href={portfolio.social.twitter} target="_blank" rel="noreferrer"><span>X</span><strong>@lamirabasil</strong><b>↗</b></a>
+            <a href={portfolio.social.instagram} target="_blank" rel="noreferrer"><span>Instagram</span><strong>@amirabasi___</strong><b>↗</b></a>
+            <a href={portfolio.resume.href} target="_blank" rel="noreferrer"><span>Résumé</span><strong>{portfolio.resume.label}</strong><b>↗</b></a>
+            <a href={portfolio.site.blogUrl} target="_blank" rel="noreferrer"><span>Blog</span><strong>amirabasi.info/blog</strong><b>↗</b></a>
+          </nav>
+          <p className="cta-tip">tip — best opener is one line on what you&apos;re building + your timeline.</p>
         </RevealSection>
       </main>
 
-      <footer className="landing-footer">
-        <div><strong>Amir Abasi</strong><span>Product engineer / Full-stack developer</span></div>
-        <div className="footer-links"><a href={portfolio.social.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={portfolio.social.twitter} target="_blank" rel="noreferrer">X</a><Link href="/developer-view">Developer view</Link></div>
-        <span>© {new Date().getFullYear()} AA</span>
-      </footer>
+      <Footer />
     </div>
   );
 }
