@@ -7,7 +7,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, type ReactNode } from "react";
 import { ParallaxComponent } from "@/components/ui/parallax-scrolling";
-import { AuroraBackground, CountUp, MagneticLink, PointerGlow, ScrollProgress, TextReveal, TracingBeam, useSpotlight } from "@/components/ui/motion-primitives";
+import { CountUp, MagneticLink, PointerGlow, ScrollProgress, TextReveal, TracingBeam, useSpotlight } from "@/components/ui/motion-primitives";
+import { Footer } from "@/components/ui/footer-section";
 import { portfolio } from "@/data/portfolio";
 
 const capabilities = [
@@ -32,14 +33,6 @@ const capabilities = [
 ] as const;
 
 const projectAccents = ["blue", "coral", "lime", "violet", "sand", "blue"] as const;
-const projectImages = [
-  "/projects/bitimen.svg",
-  "/projects/aqila.svg",
-  "/projects/catchup.svg",
-  "/projects/etlo.svg",
-  "/projects/hiddify.svg",
-  "/projects/vibez.svg",
-] as const;
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -76,13 +69,11 @@ function SpotlightProject({
   project,
   index,
   accent,
-  image,
   reducedMotion,
 }: {
   project: (typeof portfolio.projects)[number];
   index: number;
   accent: (typeof projectAccents)[number];
-  image: (typeof projectImages)[number];
   reducedMotion: boolean | null;
 }) {
   const spotlight = useSpotlight({ tilt: true, tiltStrength: 4.5 });
@@ -99,7 +90,7 @@ function SpotlightProject({
       whileTap={reducedMotion ? undefined : { scale: 0.992 }}
     >
       <div className="project-art">
-        <Image className="project-art-image" src={image} alt={`${project.title} project preview`} fill sizes="(max-width: 560px) calc(100vw - 32px), 50vw" />
+        <Image className="project-art-image" src={project.image} alt={`${project.title} project preview`} fill sizes="(max-width: 560px) calc(100vw - 32px), 50vw" />
         <span>{String(index + 1).padStart(2, "0")}</span>
         <div className="project-art-shape" />
         <b>{project.tags[0]}</b>
@@ -290,7 +281,7 @@ export function LandingPage() {
             <p>Mobile, web, AI, crypto, and everything in between.</p>
           </div>
           <div className="project-grid" data-scroll-layer data-scroll-speed="7">
-            {featuredProjects.map((project, index) => <SpotlightProject key={project.title} project={project} index={index} accent={projectAccents[index]} image={projectImages[index]} reducedMotion={reducedMotion} />)}
+            {featuredProjects.map((project, index) => <SpotlightProject key={project.title} project={project} index={index} accent={projectAccents[index]} reducedMotion={reducedMotion} />)}
           </div>
           <div className="section-end-link"><Link className="text-link" href="/developer-view/projects">See all projects <span>↗</span></Link></div>
         </RevealSection>
@@ -343,11 +334,7 @@ export function LandingPage() {
         </RevealSection>
       </main>
 
-      <footer className="landing-footer">
-        <div><strong>Amir Abasi</strong><span>Product engineer / Full-stack developer</span></div>
-        <div className="footer-links"><a href={portfolio.social.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={portfolio.social.twitter} target="_blank" rel="noreferrer">X</a><Link href="/developer-view">Developer view</Link></div>
-        <span>© {new Date().getFullYear()} AA</span>
-      </footer>
+      <Footer />
     </div>
   );
 }

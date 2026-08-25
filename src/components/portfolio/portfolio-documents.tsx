@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { portfolio } from "@/data/portfolio";
 import { BorderBeam, MagneticLink, ScrollReveal, TracingBeam } from "@/components/ui/motion-primitives";
 
@@ -120,6 +121,9 @@ export function ProjectsDocument() {
               {index === 0 ? <BorderBeam className="route-project-beam" /> : null}
               <div className="project-index">{String(index + 1).padStart(2, "0")}</div>
               <div className="project-content">
+                <div className="project-item-image">
+                  <Image src={project.image} alt={`${project.title} project preview`} fill sizes="(max-width: 760px) calc(100vw - 74px), 740px" />
+                </div>
                 <div className="project-heading">
                   <div>
                     <p>{project.category}</p>
