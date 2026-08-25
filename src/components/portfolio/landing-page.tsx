@@ -7,9 +7,11 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, type ReactNode } from "react";
 import { ParallaxComponent } from "@/components/ui/parallax-scrolling";
-import { CountUp, MagneticLink, PointerGlow, ScrollProgress, TextReveal, TracingBeam, useSpotlight } from "@/components/ui/motion-primitives";
+import { MagneticLink, PointerGlow, ScrollProgress, TextReveal, TracingBeam, useSpotlight } from "@/components/ui/motion-primitives";
 import { Footer } from "@/components/ui/footer-section";
 import { PixelImage } from "@/components/ui/pixel-image";
+import { AnimatedStat } from "@/components/ui/animated-stat";
+import { BottomDock } from "@/components/portfolio/bottom-dock";
 import { portfolio } from "@/data/portfolio";
 
 const capabilities = [
@@ -190,21 +192,7 @@ export function LandingPage() {
       <PointerGlow className="landing-pointer-glow" />
       <ScrollProgress className="landing-scroll-progress" />
       <a className="landing-skip-link" href="#main-content">Skip to content</a>
-
-      <header className="landing-nav">
-        <Link className="landing-brand" href="#top" aria-label="Amir Abasi home">
-          <span className="landing-brand-mark"><Image src="/brand-mark.svg" alt="" width={30} height={30} /></span>
-          <span><strong>Amir Abasi</strong><small>product engineer</small></span>
-        </Link>
-        <nav aria-label="Primary navigation">
-          <a href="#selected-work">Work</a>
-          <a href="#experience">Experience</a>
-          <a href="#capabilities">Capabilities</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <MagneticLink className="landing-nav-cta" href={`mailto:${portfolio.contact.email}`}><span>Let&apos;s talk</span><b>↗</b></MagneticLink>
-      </header>
+      <BottomDock />
 
       <main id="main-content">
         <ParallaxComponent className="landing-hero-parallax" id="top" labelledBy="landing-title">
@@ -275,7 +263,7 @@ export function LandingPage() {
           <div className="stat-ribbon" aria-label="Career highlights" data-scroll-layer data-scroll-speed="9">
             {portfolio.statistics.slice(0, 4).map((stat) => (
               <div className="stat-ribbon-item" key={stat.label}>
-                <strong><CountUp value={stat.value} /></strong>
+                <strong><AnimatedStat value={stat.value} fontSize={38} /></strong>
                 <span>{stat.label}</span>
                 <small>{stat.detail}</small>
               </div>

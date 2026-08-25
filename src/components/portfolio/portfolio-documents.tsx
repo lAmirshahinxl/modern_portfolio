@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { portfolio } from "@/data/portfolio";
 import { BorderBeam, MagneticLink, ScrollReveal, TracingBeam } from "@/components/ui/motion-primitives";
+import { AnimatedStat } from "@/components/ui/animated-stat";
 
 function DocumentCommand({ command, file }: { command: string; file: string }) {
   return (
@@ -60,9 +61,9 @@ export function ExperienceDocument() {
         <TracingBeam className="document-tracing-beam" />
         <h2 className="document-label" id="numbers-title">02 · BY THE NUMBERS</h2>
         <div className="numbers-grid">
-          {portfolio.statistics.map((stat) => (
-            <ScrollReveal className="number-item" key={stat.label} delay={0.04 * portfolio.statistics.indexOf(stat)}>
-              <strong>{stat.value}</strong>
+          {portfolio.statistics.map((stat, index) => (
+            <ScrollReveal className="number-item" key={stat.label} delay={0.04 * index}>
+              <strong><AnimatedStat value={stat.value} /></strong>
               <p>{stat.label}</p>
               <small>{stat.detail}</small>
             </ScrollReveal>
