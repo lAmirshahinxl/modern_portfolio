@@ -1,3 +1,6 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowUpRightIcon,
   CameraIcon,
@@ -9,6 +12,7 @@ import {
   MessageCircleIcon,
   type LucideIcon,
 } from "lucide-react";
+import type { ComponentProps, ReactNode } from "react";
 import { portfolio } from "@/data/portfolio";
 
 interface FooterLink {
@@ -64,14 +68,14 @@ const footerLinks: FooterSection[] = [
   },
 ];
 
-export function Footer() {
+export function DesktopFooter() {
   return (
     <footer className="footer-section" aria-label="Site footer">
       <div className="footer-section-rule" aria-hidden="true" />
 
       <div className="footer-section-inner">
         <div className="footer-section-grid">
-          <div className="footer-section-brand">
+          <AnimatedContainer className="footer-section-brand">
             <FrameIcon className="footer-section-mark" aria-hidden="true" />
             <div className="footer-section-brand-copy">
               <strong>{portfolio.brand.name}</strong>
@@ -83,11 +87,11 @@ export function Footer() {
             <p className="footer-section-copyright">
               © {new Date().getFullYear()} {portfolio.brand.name}. All rights reserved.
             </p>
-          </div>
+          </AnimatedContainer>
 
           <div className="footer-section-links">
-            {footerLinks.map((section) => (
-              <div key={section.label} className="footer-section-column">
+            {footerLinks.map((section, index) => (
+              <AnimatedContainer key={section.label} delay={0.1 + index * 0.08} className="footer-section-column">
                 <h3>{section.label}</h3>
                 <ul>
                   {section.links.map((link) => {
@@ -107,7 +111,7 @@ export function Footer() {
                     );
                   })}
                 </ul>
-              </div>
+              </AnimatedContainer>
             ))}
           </div>
         </div>
@@ -115,3 +119,26 @@ export function Footer() {
     </footer>
   );
 }
+
+type ViewAnimationProps = {
+  delay?: number;
+  className?: ComponentProps<typeof motion.div>["className"];
+  children: ReactNode;
+};
+
+function AnimatedContainer({ className, delay = 0.1, children }: ViewAnimationProps) {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? false : { filter: "blur(4px)", y: -8, opacity: 0 }}
+      whileInView={{ filter: "blur(0px)", y: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={shouldReduceMotion ? { duration: 0 } : { delay, duration: 0.8 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+

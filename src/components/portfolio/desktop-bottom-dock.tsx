@@ -9,6 +9,7 @@ import {
   ScrollText,
 } from 'lucide-react';
 import { useEffect, useState, type MouseEvent } from 'react';
+import { Dock, DockIcon, DockItem, DockLabel } from '@/components/ui/dock';
 
 const navigationItems = [
   {
@@ -45,7 +46,7 @@ const navigationItems = [
 
 const navigationSectionIds = navigationItems.map((item) => item.href.slice(1));
 
-export function BottomDock() {
+export function DesktopBottomDock() {
   const [activeSection, setActiveSection] = useState('top');
 
   useEffect(() => {
@@ -105,26 +106,24 @@ export function BottomDock() {
 
   return (
     <nav className="landing-dock-nav" aria-label="Primary navigation">
-      <div className="dock-scroller">
-        <div className="dock-panel landing-dock-panel landing-dock-static" role="toolbar" aria-label="Section navigation">
+      <Dock className="landing-dock-panel">
         {navigationItems.map((item) => (
-            <div className="dock-item landing-dock-item" key={item.title}>
-              <a
-                href={item.href}
-                aria-label={`Go to ${item.title}`}
-                aria-current={activeSection === item.href.slice(1) ? 'location' : undefined}
-                onClick={(event) => handleNavigation(event, item.href)}
-                className="dock-link"
-              >
-                <span className="dock-label">{item.title}</span>
-                <span className="dock-icon landing-dock-icon-wrap">
-                  <span className="landing-dock-icon">{item.icon}</span>
-                </span>
-              </a>
-            </div>
+          <DockItem
+            key={item.title}
+            href={item.href}
+            aria-label={`Go to ${item.title}`}
+            aria-current={activeSection === item.href.slice(1) ? 'location' : undefined}
+            onClick={(event) => handleNavigation(event, item.href)}
+            className="landing-dock-item"
+          >
+            <DockLabel>{item.title}</DockLabel>
+            <DockIcon className="landing-dock-icon-wrap">
+              <span className="landing-dock-icon">{item.icon}</span>
+            </DockIcon>
+          </DockItem>
         ))}
-        </div>
-      </div>
+      </Dock>
     </nav>
   );
 }
+

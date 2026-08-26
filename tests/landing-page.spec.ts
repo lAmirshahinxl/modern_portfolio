@@ -28,6 +28,50 @@ test("renders the redesigned landing page at the root route", async ({ page }) =
   await expect(page.locator(".ide")).toHaveCount(0);
 });
 
+test("keeps the landing accessibility tree agent-friendly", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.locator("span[aria-label]")).toHaveCount(0);
+  await expect(page.getByRole("heading", { level: 1, name: /I build software that feels clear/ })).toBeVisible();
+});
+
+test("does not send the hero image in the initial landing markup", async ({ request }) => {
+  const response = await request.get("/");
+
+  expect(response.ok()).toBeTruthy();
+  const html = await response.text();
+
+  expect(html).toContain("signal-image-placeholder");
+  expect(html).not.toContain("/hero-image.webp");
+});
+
+test("keeps landing motion desktop-only", async ({ page }, testInfo) => {
+  await page.goto("/");
+  await page.waitForTimeout(800);
+
+  const motionState = await page.evaluate(() => ({
+    pointerGlowCount: document.querySelectorAll(".landing-pointer-glow").length,
+    scrollProgressCount: document.querySelectorAll(".landing-scroll-progress").length,
+    pixelPieceCount: document.querySelectorAll(".pixel-image-piece").length,
+    externalParallaxImageCount: Array.from(document.images).filter((image) => image.src.includes("cdn.prod.website-files.com")).length,
+  }));
+
+  if (testInfo.project.name === "mobile") {
+    expect(motionState).toEqual({
+      pointerGlowCount: 0,
+      scrollProgressCount: 0,
+      pixelPieceCount: 0,
+      externalParallaxImageCount: 0,
+    });
+    return;
+  }
+
+  expect(motionState.pointerGlowCount).toBe(1);
+  expect(motionState.scrollProgressCount).toBe(1);
+  expect(motionState.pixelPieceCount).toBe(20);
+  expect(motionState.externalParallaxImageCount).toBe(2);
+});
+
 test("keeps the original IDE portfolio at the developer view route", async ({ page }) => {
   await page.goto("/developer-view");
 

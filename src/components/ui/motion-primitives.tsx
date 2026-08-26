@@ -94,12 +94,12 @@ export function TextReveal({
   const reducedMotion = useReducedMotion();
 
   return (
-    <span className={`text-reveal ${className}`} aria-label={text}>
+    <>
+      <span className={`text-reveal ${className}`} aria-hidden="true">
       {text.split(" ").map((word, index) => (
         <motion.span
           key={`${word}-${index}`}
           className="text-reveal-word"
-          aria-hidden="true"
           initial={reducedMotion ? false : { opacity: 0, y: 18, rotateX: -70 }}
           animate={{ opacity: 1, y: 0, rotateX: 0 }}
           transition={reducedMotion ? { duration: 0 } : { duration: 0.62, delay: delay + index * 0.055, ease }}
@@ -107,7 +107,9 @@ export function TextReveal({
           {word}{index < text.split(" ").length - 1 ? "\u00a0" : ""}
         </motion.span>
       ))}
-    </span>
+      </span>
+      <span className="sr-only">{text}</span>
+    </>
   );
 }
 

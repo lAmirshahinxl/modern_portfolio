@@ -1603,6 +1603,16 @@ a:focus-visible {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.landing-static-fallback {
+  display: contents;
+}
+
+@media (min-width: 821px) and (prefers-reduced-motion: no-preference) {
+  .landing-static-fallback {
+    display: none;
+  }
+}
+
 .landing-shell a {
   color: inherit;
 }
@@ -1867,6 +1877,18 @@ a:focus-visible {
   font: 10px/1 Menlo, Monaco, Consolas, monospace;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+.landing-dock-nav .landing-dock-static .dock-label {
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.landing-dock-nav .landing-dock-static .dock-link:hover .dock-label,
+.landing-dock-nav .landing-dock-static .dock-link:focus-visible .dock-label {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .landing-dock-nav .dock-icon {
@@ -2280,10 +2302,6 @@ a:focus-visible {
   width: min(1180px, calc(100% - 64px));
   margin: 0 auto;
   padding: 132px 0;
-}
-
-.landing-section [data-scroll-layer] {
-  will-change: transform;
 }
 
 .landing-section::before {
@@ -3402,7 +3420,6 @@ a:focus-visible {
   inset: -9% 0;
   overflow: hidden;
   pointer-events: none;
-  will-change: transform;
 }
 
 .parallax__layer-img {
@@ -3426,6 +3443,33 @@ a:focus-visible {
 .parallax__layer-img[data-parallax-layer="2"] {
   z-index: 2;
   opacity: 0.82;
+}
+
+.parallax__layer-surface {
+  position: absolute;
+  top: -9%;
+  left: -7%;
+  display: block;
+  width: 114%;
+  max-width: none;
+  height: 118%;
+  user-select: none;
+}
+
+.parallax__layer-surface-one {
+  z-index: 1;
+  opacity: 0.92;
+  background:
+    radial-gradient(circle at 18% 30%, rgba(138, 217, 246, 0.16), transparent 23%),
+    linear-gradient(135deg, rgba(0, 92, 132, 0.46), transparent 52%);
+}
+
+.parallax__layer-surface-two {
+  z-index: 2;
+  opacity: 0.82;
+  background:
+    radial-gradient(circle at 78% 62%, rgba(201, 235, 118, 0.08), transparent 20%),
+    linear-gradient(155deg, transparent 35%, rgba(16, 117, 166, 0.22) 68%, transparent 84%);
 }
 
 .parallax__layer-title {
@@ -3466,9 +3510,7 @@ a:focus-visible {
 }
 
 .landing-hero-parallax .parallax__layer-img {
-  /* The external artwork has a visible rectangular edge at some viewport sizes.
-     Keep the parallax layers in the DOM for the scroll choreography, but let the
-     CSS atmosphere provide the full-bleed hero background. */
+  /* Keep the original layered scroll choreography while the CSS atmosphere provides the full-bleed background. */
   opacity: 0;
 }
 
@@ -3510,7 +3552,7 @@ a:focus-visible {
     height: 135svh;
   }
 
-  .parallax__layer-img {
+  .parallax__layer-surface {
     top: -4%;
     left: -34%;
     width: 168%;
@@ -3520,7 +3562,6 @@ a:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .parallax__layer-img,
   .parallax__layer-title {
     transform: none !important;
   }
@@ -4093,7 +4134,7 @@ a:focus-visible {
   overflow: hidden;
   border-top: 1px solid rgba(7, 21, 33, 0.12);
   border-bottom: 1px solid rgba(7, 21, 33, 0.12);
-  color: #66757a;
+  color: #4f6267;
   background: #f4f1e9;
   mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
@@ -4814,5 +4855,15 @@ a:focus-visible {
 
   .cta-channel-list a {
     grid-template-columns: 63px minmax(0, 1fr) auto;
+  }
+}
+
+@media (max-width: 820px) {
+  .signal-marquee-track,
+  .landing-cta-section::after,
+  .tracing-beam i,
+  .hero-signature i,
+  .hero-footnote {
+    animation: none;
   }
 }
